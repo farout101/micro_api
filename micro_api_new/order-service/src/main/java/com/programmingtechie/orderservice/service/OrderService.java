@@ -13,6 +13,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -47,7 +48,7 @@ public class OrderService {
                 .bodyToMono(InventoryResponse[].class)
                 .block();
 
-        boolean allProductsInStock = Arrays.stream(inventoryResponsArray)
+        boolean allProductsInStock = Arrays.stream(Objects.requireNonNull(inventoryResponsArray))
                 .allMatch(InventoryResponse::isInStock);
 
         if(allProductsInStock){
